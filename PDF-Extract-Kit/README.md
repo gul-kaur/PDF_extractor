@@ -87,6 +87,15 @@ Coming Soon!
 
 ## Usage Guide
 
+### Cloning the Repository
+
+To get started, clone the repository to your local machine:
+
+```bash
+git clone https://github.com/opendatalab/PDF-Extract-Kit.git
+cd PDF-Extract-Kit
+```
+
 ### Environment Setup
 
 ```bash
@@ -100,46 +109,58 @@ pip install -r requirements.txt
 
 ### Model Download
 
-Please refer to the [Model Weights Download Tutorial](https://pdf-extract-kit.readthedocs.io/en/latest/get_started/pretrained_model.html) to download the required model weights. Note: You can choose to download all the weights or select specific ones. For detailed instructions, please refer to the tutorial.
+The pre-trained models are essential for running the toolkit. You can download them from:
 
-### Running Demos
+- **Hugging Face:** [[Models (🤗Hugging Face)]](https://huggingface.co/opendatalab/PDF-Extract-Kit-1.0)
+- **ModelScope:** [[Models(<img src="./assets/readme/modelscope_logo.png" width="20px">ModelScope)]](https://www.modelscope.cn/models/OpenDataLab/PDF-Extract-Kit-1.0)
 
-#### Layout Detection Model
+Please follow the detailed instructions in the [Model Weights Download Tutorial](https://pdf-extract-kit.readthedocs.io/en/latest/get_started/pretrained_model.html) to download and place the model weights correctly. You can download all weights or only the ones needed for specific tasks.
 
-```bash 
+### Running the Toolkit
+
+The toolkit provides individual scripts within the `scripts/` directory to run specific extraction tasks. Each script uses a corresponding configuration file located in the `configs/` directory.
+
+**Output Location:** By default, the results of each task are saved in the `outputs/` directory, organized into subfolders named after the task (e.g., `outputs/layout_detection`, `outputs/formula_recognition`). You can modify the output path within the respective configuration files if needed.
+
+Here are the commands to run the main tasks:
+
+#### 1. Layout Detection
+
+```bash
 python scripts/layout_detection.py --config=configs/layout_detection.yaml
 ```
-Layout detection models support **DocLayout-YOLO** (default model), YOLO-v10, and LayoutLMv3. For YOLO-v10 and LayoutLMv3, please refer to [Layout Detection Algorithm](https://pdf-extract-kit.readthedocs.io/en/latest/algorithm/layout_detection.html). You can view the layout detection results in the `outputs/layout_detection` folder.
+This task identifies elements like text blocks, tables, figures, and formulas. Results are saved in `outputs/layout_detection/`.
+*Supported Models:* DocLayout-YOLO (default), YOLO-v10, LayoutLMv3. See [Layout Detection Algorithm](https://pdf-extract-kit.readthedocs.io/en/latest/algorithm/layout_detection.html) for details on switching models.
 
-#### Formula Detection Model
+#### 2. Formula Detection
 
-```bash 
+```bash
 python scripts/formula_detection.py --config=configs/formula_detection.yaml
 ```
-You can view the formula detection results in the `outputs/formula_detection` folder.
+This task specifically locates mathematical formulas (inline and display). Results are saved in `outputs/formula_detection/`.
 
-#### OCR Model
+#### 3. OCR (Optical Character Recognition)
 
-```bash 
+```bash
 python scripts/ocr.py --config=configs/ocr.yaml
 ```
-You can view the OCR results in the `outputs/ocr` folder.
+This task extracts text content from images or PDF pages. Results are saved in `outputs/ocr/`.
 
-#### Formula Recognition Model
+#### 4. Formula Recognition
 
-```bash 
+```bash
 python scripts/formula_recognition.py --config=configs/formula_recognition.yaml
 ```
-You can view the formula recognition results in the `outputs/formula_recognition` folder.
+This task converts detected formula images into LaTeX source code. Results are saved in `outputs/formula_recognition/`.
 
-#### Table Recognition Model
+#### 5. Table Recognition
 
-```bash 
+```bash
 python scripts/table_parsing.py --config configs/table_parsing.yaml
 ```
-You can view the table recognition results in the `outputs/table_parsing` folder.
+This task converts detected table images into structured formats (LaTeX, HTML, Markdown). Results are saved in `outputs/table_parsing/`.
 
-> **Note:** For more details on using the model, please refer to the[PDF-Extract-Kit-1.0 Tutorial](https://pdf-extract-kit.readthedocs.io/en/latest/get_started/pretrained_model.html).
+> **Note:** For more detailed usage instructions, configuration options, and advanced features for each task, please refer to the comprehensive [PDF-Extract-Kit-1.0 Tutorial](https://pdf-extract-kit.readthedocs.io/en/latest/get_started/pretrained_model.html) and the specific algorithm documentation linked within it.
 
 > This project focuses on using models for `high-quality` content extraction from `diverse` documents and does not involve reconstructing extracted content into new documents, such as PDF to Markdown. For such needs, please refer to our other GitHub project: [MinerU](https://github.com/opendatalab/MinerU).
 
