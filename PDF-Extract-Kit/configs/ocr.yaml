@@ -1,0 +1,12 @@
+inputs: input_pdf
+outputs: outputs/ocr_output
+visualize: True
+tasks:
+  ocr:
+    model: ocr_ppocr
+    model_config:
+      lang: en
+      show_log: True
+      det_model_dir: models/OCR/PaddleOCR/det/ch_PP-OCRv4_det
+      rec_model_dir: models/OCR/PaddleOCR/rec/ch_PP-OCRv4_rec
+      det_db_box_thresh: 0.3
